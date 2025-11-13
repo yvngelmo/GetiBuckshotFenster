@@ -34,6 +34,7 @@ func _ready() -> void:
 	if isCorner:
 		hasBeenTurned = true
 		animation_player.play("flip")
+		$doorFX.play()
 
 func _process(delta: float) -> void:
 	hasTurnedNeighbours = false
@@ -130,6 +131,7 @@ func reset(resetid: int, eventEntry: bool) -> void:
 			await get_tree().create_timer(0.3).timeout
 			hasBeenTurned = true
 			animation_player.play("flip")
+			$shuffleFX.play()
 
 func _input(event):
 	if event is InputEventMouseButton:
