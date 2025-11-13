@@ -7,6 +7,7 @@ extends Node3D
 @export var bottomCard: Node
 @export var leftCard: Node 
 @export var rightCard: Node
+@export var moneyFX: Node
 
 var abzugProKarte = 1
 
@@ -107,6 +108,7 @@ func reset(resetid: int, eventEntry: bool) -> void:
 		hasBeenTurned = false
 		animation_player.play("flip_back")
 		$flipFX.play()
+		moneyFX.play()
 		cardValue = randi_range(0,12)
 		debug_Label.text = str(cardValue)
 		if master.currentPlayer == 1:
