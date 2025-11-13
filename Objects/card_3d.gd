@@ -102,6 +102,7 @@ func reset(resetid: int, eventEntry: bool) -> void:
 	if eventEntry:
 		await get_tree().create_timer(0.75).timeout
 		$shuffleSFX.play()
+		master.allowedToSwitchPlayer = false
 	
 	if resetid != lastResetID and hasBeenTurned:
 		lastResetID = resetid

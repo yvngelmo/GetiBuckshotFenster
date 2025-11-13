@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://crvs8uw1ygngm"]
+[gd_scene load_steps=14 format=3 uid="uid://crvs8uw1ygngm"]
 
 [ext_resource type="Script" uid="uid://bixhcs3i2qrrr" path="res://Objects/card_3d.gd" id="1_6vkeq"]
 [ext_resource type="Texture2D" uid="uid://bvk6wyjnj0wu6" path="res://Sprites/karten/kartendeck transp.png" id="2_dr2mf"]
 [ext_resource type="Texture2D" uid="uid://diaq7odhcpw8c" path="res://Sprites/karten/RückseiteKarten.png" id="3_dr2mf"]
 [ext_resource type="AudioStream" uid="uid://dm2kd7vjwx0q2" path="res://Sounds/CardFlip.wav" id="4_naqve"]
 [ext_resource type="AudioStream" uid="uid://dv4d4rp5e8e0u" path="res://Sounds/Money.wav" id="5_nonu5"]
+[ext_resource type="AudioStream" uid="uid://dfemy21f4k6x1" path="res://Sounds/Selbstgemacht/shuffle2.wav" id="6_45762"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dr2mf"]
 size = Vector3(0.50354004, 0.016601563, 0.79437256)
@@ -93,7 +94,7 @@ cardSprite = NodePath("Vorderseite")
 moneyFX = NodePath("moneyFX")
 
 [node name="Vorderseite" type="Sprite3D" parent="."]
-transform = Transform3D(-1, -1.5099633e-07, -6.600259e-15, 0, 4.371139e-08, -1, -1.5099633e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
+transform = Transform3D(-1, -1.5099634e-07, -6.60026e-15, 0, 4.371139e-08, -1, -1.5099634e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
 shaded = true
 alpha_cut = 2
 texture_filter = 0
@@ -135,6 +136,9 @@ volume_db = -5.0
 
 [node name="moneyFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_nonu5")
+
+[node name="shuffleSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_45762")
 
 [connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
 [connection signal="mouse_exited" from="Area3D" to="." method="_on_area_3d_mouse_exited"]
