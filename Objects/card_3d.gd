@@ -7,6 +7,7 @@ extends Node3D
 @export var bottomCard: Node
 @export var leftCard: Node 
 @export var rightCard: Node
+@export var moneyFX: Node
 
 var abzugProKarte = 1
 
@@ -101,12 +102,15 @@ func getAmountOfTurnedNeighbours() -> Vector3i:
 func reset(resetid: int, eventEntry: bool) -> void:
 	if eventEntry:
 		await get_tree().create_timer(0.75).timeout
+		$shuffleSFX.play()
+		master.allowedToSwitchPlayer = false
 	
 	if resetid != lastResetID and hasBeenTurned:
 		lastResetID = resetid
 		hasBeenTurned = false
 		animation_player.play("flip_back")
 		$flipFX.play()
+		moneyFX.play()
 		cardValue = randi_range(0,12)
 		debug_Label.text = str(cardValue)
 		if master.currentPlayer == 1:
@@ -146,22 +150,22 @@ func _input(event):
 				if numN.x == 1:
 					if cardValue <= numN.z:
 						reset(randi(),true)
-						print("verloren du Pisser")
+						master.allowedToSwitchPlayer = false
 				if numN.x >= 2:
 					if cardValue <= numN.z and cardValue >= numN.y:
 						reset(randi(),true)
-						print("innerhalb du kleiner Peach")
+						master.allowedToSwitchPlayer = false
 						
 			if event.is_action_pressed("Mouse Right"):
 				if numN.x == 1:
 					if cardValue >= numN.z:
 						reset(randi(),true)
-						print("verloren weil kleiner")
+						master.allowedToSwitchPlayer = false
 				if numN.x >= 2:
 					print(cardValue >= numN.z, cardValue <= numN.y)
 					if cardValue <= numN.z and cardValue <= numN.y:
 						reset(randi(),true)
-						print("außerhalb du Pisser")
+						master.allowedToSwitchPlayer = false
 			
 			else:
 				master.allowedToSwitchPlayer = true
