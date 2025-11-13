@@ -19,6 +19,8 @@ var Bleron_Money = 20:
 @export var gettiGeldLabel: Node
 @export var bleronGeldLabel: Node
 
+
+
 func _process(delta: float) -> void:
 	gettiGeldLabel.text = str(Getti_Money)+"$"
 	bleronGeldLabel.text = str(Bleron_Money)+"$"
