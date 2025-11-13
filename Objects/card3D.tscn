@@ -1,0 +1,135 @@
+[gd_scene load_steps=12 format=3 uid="uid://crvs8uw1ygngm"]
+
+[ext_resource type="Script" uid="uid://bixhcs3i2qrrr" path="res://Objects/card_3d.gd" id="1_6vkeq"]
+[ext_resource type="Texture2D" uid="uid://bvk6wyjnj0wu6" path="res://Sprites/karten/kartendeck transp.png" id="2_dr2mf"]
+[ext_resource type="Texture2D" uid="uid://diaq7odhcpw8c" path="res://Sprites/karten/RückseiteKarten.png" id="3_dr2mf"]
+[ext_resource type="AudioStream" uid="uid://dm2kd7vjwx0q2" path="res://Sounds/CardFlip.wav" id="4_naqve"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dr2mf"]
+size = Vector3(0.50354004, 0.016601563, 0.79437256)
+
+[sub_resource type="Animation" id="Animation_jp5bc"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vorderseite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -4.714162e-10, -0.0053923726, 0)
+
+[sub_resource type="Animation" id="Animation_dh8iw"]
+resource_name = "flip"
+length = 0.2
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vorderseite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.70710677, 0, 0, 0.70710677, 0.2, 1, 3.090862e-08, 0.70710677, -0.70710677, -3.090862e-08)
+
+[sub_resource type="Animation" id="Animation_dr2mf"]
+resource_name = "flip_back"
+length = 0.2
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vorderseite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 3.090862e-08, 0.70710677, -0.70710677, -3.090862e-08, 0.0001, 1, 3.090862e-08, 0.70710677, -0.70710677, -3.090862e-08, 0.0002, 1, 3.090862e-08, -0.70710677, 0.70710677, 3.090862e-08, 0.00029999999, 1, 3.090862e-08, -0.70710677, 0.70710677, 3.090862e-08, 0.2, 1, -0.70710677, -8.4293696e-08, -2.2476458e-08, 0.70710677)
+
+[sub_resource type="Animation" id="Animation_gmn50"]
+resource_name = "hover"
+length = 0.1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vorderseite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -4.714162e-10, -0.0011022538, 0, 0.1, 1, 0, 0.1, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Vorderseite")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.70710677, -2.2476462e-08, -8.4293696e-08, 0.70710677)
+
+[sub_resource type="Animation" id="Animation_6vkeq"]
+resource_name = "hover_down"
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vorderseite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.1, 0, 0.2, 1, -4.714162e-10, -0.012922719, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Vorderseite")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.70710677, 0, 0, 0.70710677)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nu8qf"]
+_data = {
+&"RESET": SubResource("Animation_jp5bc"),
+&"flip": SubResource("Animation_dh8iw"),
+&"flip_back": SubResource("Animation_dr2mf"),
+&"hover": SubResource("Animation_gmn50"),
+&"hover_down": SubResource("Animation_6vkeq")
+}
+
+[node name="Card" type="Node3D" node_paths=PackedStringArray("debug_Label", "cardSprite")]
+script = ExtResource("1_6vkeq")
+debug_Label = NodePath("Vorderseite/DebugNumber")
+cardSprite = NodePath("Vorderseite")
+
+[node name="Vorderseite" type="Sprite3D" parent="."]
+transform = Transform3D(-1, -1.5099631e-07, -6.6002586e-15, 0, 4.371139e-08, -1, -1.5099631e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
+shaded = true
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("2_dr2mf")
+hframes = 13
+vframes = 4
+region_rect = Rect2(3, 3, 51, 79)
+
+[node name="DebugNumber" type="Label3D" parent="Vorderseite"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.05223e-09, 0.11558154)
+billboard = 1
+texture_filter = 0
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "12"
+font_size = 60
+outline_size = 0
+
+[node name="Rückseite" type="Sprite3D" parent="Vorderseite"]
+transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, -0.009940658, -0.0009291018, -0.0038289053)
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("3_dr2mf")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0032348633, -0.0024414063, 0.0050354004)
+shape = SubResource("BoxShape3D_dr2mf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nu8qf")
+}
+
+[node name="flipFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_naqve")
+volume_db = -5.0
+
+[connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_on_area_3d_mouse_exited"]

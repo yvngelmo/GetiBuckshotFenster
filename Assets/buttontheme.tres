@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://8fsg3ew3emc2"]
+
+[ext_resource type="FontFile" uid="uid://c3gdj0k0fe2pc" path="res://Assets/ViaodaLibre-Regular.ttf" id="1_2bado"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mktkp"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2bado"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt0m4"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2ty5"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edqsg"]
+bg_color = Color(0, 0, 0, 1)
+
+[resource]
+default_font = ExtResource("1_2bado")
+default_font_size = 36
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(1, 0, 0.36862746, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0, 0.36862746, 1)
+Button/colors/font_pressed_color = Color(1, 0, 0.36862746, 1)
+Button/colors/icon_color_disabled = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_2bado")
+Button/styles/disabled = SubResource("StyleBoxFlat_mktkp")
+Button/styles/focus = SubResource("StyleBoxFlat_2bado")
+Button/styles/hover = SubResource("StyleBoxFlat_gt0m4")
+Button/styles/normal = SubResource("StyleBoxFlat_h2ty5")
+Button/styles/pressed = SubResource("StyleBoxFlat_edqsg")

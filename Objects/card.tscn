@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtvt432xk124c"]
+
+[ext_resource type="Texture2D" uid="uid://bnkh1sdiqxsw0" path="res://Sprites/karten/fisikali fit.png" id="1_dk6je"]
+[ext_resource type="Script" uid="uid://bw5s56s7a2byq" path="res://Objects/card.gd" id="1_plkrm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plkrm"]
+size = Vector2(366, 544)
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_plkrm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.35541284)
+texture = ExtResource("1_dk6je")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_plkrm")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="mouse_shape_entered" from="Area2D" to="." method="_on_area_2d_mouse_shape_entered"]

@@ -1,0 +1,285 @@
+[gd_scene load_steps=25 format=3 uid="uid://bc7efecqy21bq"]
+
+[ext_resource type="Script" uid="uid://cbgvgy15nhw5x" path="res://Levels/master_logic.gd" id="1_inedi"]
+[ext_resource type="Texture2D" uid="uid://ctqdprp1o7hx1" path="res://Sprites/scene/background1.png" id="1_sywdn"]
+[ext_resource type="ArrayMesh" uid="uid://cdt28dr5wafmh" path="res://3dObj/scene.obj" id="2_m1evb"]
+[ext_resource type="Script" uid="uid://bvc145igde8b1" path="res://Levels/mausklick_blocken_wenn_flip_animation_playt.gd" id="2_tebnk"]
+[ext_resource type="Texture2D" uid="uid://cg7gkafytfoce" path="res://Sprites/scene/background2.png" id="2_vid43"]
+[ext_resource type="Script" uid="uid://bm1jxr8bj6m1y" path="res://Objects/background1.gd" id="3_g1e2x"]
+[ext_resource type="Texture2D" uid="uid://c7ljt573r88ff" path="res://Sprites/scene/scene.png" id="3_m1evb"]
+[ext_resource type="PackedScene" uid="uid://bv3g8r45dvgvn" path="res://Objects/Fenster.tscn" id="3_sywdn"]
+[ext_resource type="Script" uid="uid://cal7r658xtafc" path="res://Objects/background2.gd" id="4_vid43"]
+[ext_resource type="PackedScene" uid="uid://b64saanc6rka1" path="res://Objects/tooltips.tscn" id="10_6ire3"]
+[ext_resource type="Texture2D" uid="uid://bmfnkovxagd0w" path="res://Sprites/karten/schatten.png" id="10_xba5i"]
+[ext_resource type="FontFile" uid="uid://c3gdj0k0fe2pc" path="res://Assets/ViaodaLibre-Regular.ttf" id="11_6ire3"]
+[ext_resource type="PackedScene" uid="uid://mue1q18eqr3k" path="res://Objects/einsatzMenue.tscn" id="12_f2yab"]
+[ext_resource type="AudioStream" uid="uid://d35evn2tyrnvt" path="res://Sounds/Music/depresso_espresso.wav" id="14_ehoo4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tebnk"]
+
+[sub_resource type="Animation" id="Animation_sywdn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_inedi"]
+resource_name = "camera_return"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 3.1415927, 0), Vector3(0, 6.2831855, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m1evb"]
+resource_name = "camera_turn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.1415927, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sywdn"]
+_data = {
+&"RESET": SubResource("Animation_sywdn"),
+&"camera_return": SubResource("Animation_inedi"),
+&"camera_turn": SubResource("Animation_m1evb")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_inedi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amcn2"]
+shading_mode = 0
+albedo_texture = ExtResource("1_sywdn")
+texture_filter = 0
+billboard_mode = 1
+fixed_size = true
+use_fov_override = true
+fov_override = 45.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytrxn"]
+shading_mode = 0
+albedo_texture = ExtResource("2_vid43")
+texture_filter = 0
+billboard_mode = 1
+fixed_size = true
+use_fov_override = true
+fov_override = 45.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywdn"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("3_m1evb")
+texture_filter = 0
+
+[sub_resource type="Environment" id="Environment_m1evb"]
+background_energy_multiplier = 0.0
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="Main3d" type="Node3D" node_paths=PackedStringArray("cameraAnimator", "Fenster")]
+script = ExtResource("1_inedi")
+cameraAnimator = NodePath("camera root/AnimationPlayer")
+Fenster = NodePath("Fenster")
+
+[node name="mausklick blocken wenn flip animation playt" type="Area3D" parent="."]
+script = ExtResource("2_tebnk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mausklick blocken wenn flip animation playt"]
+transform = Transform3D(2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_tebnk")
+
+[node name="camera root" type="Node3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="camera root"]
+libraries = {
+&"": SubResource("AnimationLibrary_sywdn")
+}
+
+[node name="Camera3D" type="Camera3D" parent="camera root"]
+transform = Transform3D(1, 0, 0, 0, 0.87276024, 0.4881491, 0, -0.4881491, 0.87276024, 0, 1.2346054, 1.7273028)
+fov = 35.0
+
+[node name="background1" type="MeshInstance3D" parent="camera root"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.2, -1.8)
+mesh = SubResource("QuadMesh_inedi")
+skeleton = NodePath("../../WorldEnvironment")
+surface_material_override/0 = SubResource("StandardMaterial3D_amcn2")
+script = ExtResource("3_g1e2x")
+
+[node name="background2" type="MeshInstance3D" parent="camera root"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.2, 1.8)
+mesh = SubResource("QuadMesh_inedi")
+skeleton = NodePath("../../WorldEnvironment")
+surface_material_override/0 = SubResource("StandardMaterial3D_ytrxn")
+script = ExtResource("4_vid43")
+
+[node name="Scene" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_m1evb")
+surface_material_override/0 = SubResource("StandardMaterial3D_sywdn")
+
+[node name="Fenster" parent="." node_paths=PackedStringArray("gettiGeldLabel", "bleronGeldLabel") instance=ExtResource("3_sywdn")]
+gettiGeldLabel = NodePath("../Geld_Label_Getti")
+bleronGeldLabel = NodePath("../Geld_Label_Bleron")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m1evb")
+
+[node name="schatten" type="Node" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.00858748, 0.005, 0)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D2" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.15153244, 0.005, 0.019658523)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D21" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.30911988, 0.005, 0.2120079)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D3" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.3227245, 0.005, -0.002555117)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D4" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.30766103, 0.005, -0.21460292)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D5" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.31693092, 0.005, -0.43476188)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D6" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.15123239, 0.005, -0.43360314)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D7" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.0098312795, 0.005, -0.4324444)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D8" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.16394255, 0.005, -0.44866663)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D9" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.3180538, 0.005, -0.42780948)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D10" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.017942399, 0.005, -0.21923785)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D11" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.30414906, 0.005, -0.2203966)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D12" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.32732365, 0.005, 0.0032385439)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D13" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.0075137317, 0.005, 0.2129689)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D14" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.31808972, 0.005, 0.4226992)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D15" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, -0.15123242, 0.005, 0.4041595)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D16" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.004037559, 0.005, 0.42733413)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D17" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.16046631, 0.005, 0.43196908)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D18" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.31226015, 0.005, 0.4296516)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D19" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.3053078, 0.005, 0.21528631)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Sprite3D20" type="Sprite3D" parent="schatten"]
+transform = Transform3D(0.31, 0, 0, 0, -1.35505305e-08, -0.31, 0, 0.31, -1.35505305e-08, 0.16857755, 0.005, -0.008584529)
+texture_filter = 0
+texture = ExtResource("10_xba5i")
+
+[node name="Control" parent="." instance=ExtResource("10_6ire3")]
+
+[node name="Geld_Label_Getti" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.67687637, 0.09037581, -0.44051173)
+billboard = 1
+texture_filter = 0
+text = "1234$"
+font = ExtResource("11_6ire3")
+outline_size = 4
+
+[node name="Geld_Label_Bleron" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62412804, 0.09037581, 0.4361817)
+billboard = 1
+texture_filter = 0
+text = "1234$"
+font = ExtResource("11_6ire3")
+outline_size = 4
+
+[node name="Control2" parent="." instance=ExtResource("12_f2yab")]
+visible = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_ehoo4")
+autoplay = true

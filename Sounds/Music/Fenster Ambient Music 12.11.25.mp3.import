@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bvud5qw71ci3q"
+path="res://.godot/imported/Fenster Ambient Music 12.11.25.mp3-e4e2cddb7cbb3e69243a7ba6195240bb.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Fenster Ambient Music 12.11.25.mp3"
+dest_files=["res://.godot/imported/Fenster Ambient Music 12.11.25.mp3-e4e2cddb7cbb3e69243a7ba6195240bb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
