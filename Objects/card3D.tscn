@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://crvs8uw1ygngm"]
+[gd_scene load_steps=15 format=3 uid="uid://crvs8uw1ygngm"]
 
 [ext_resource type="Script" uid="uid://bixhcs3i2qrrr" path="res://Objects/card_3d.gd" id="1_6vkeq"]
 [ext_resource type="Texture2D" uid="uid://bvk6wyjnj0wu6" path="res://Sprites/karten/kartendeck transp.png" id="2_dr2mf"]
 [ext_resource type="Texture2D" uid="uid://diaq7odhcpw8c" path="res://Sprites/karten/RückseiteKarten.png" id="3_dr2mf"]
+[ext_resource type="FontFile" uid="uid://c3gdj0k0fe2pc" path="res://Assets/ViaodaLibre-Regular.ttf" id="3_nonu5"]
 [ext_resource type="AudioStream" uid="uid://dm2kd7vjwx0q2" path="res://Sounds/CardFlip.wav" id="4_naqve"]
+[ext_resource type="AudioStream" uid="uid://dv4d4rp5e8e0u" path="res://Sounds/Money.wav" id="5_nonu5"]
+[ext_resource type="AudioStream" uid="uid://dfemy21f4k6x1" path="res://Sounds/Selbstgemacht/shuffle2.wav" id="6_45762"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dr2mf"]
 size = Vector3(0.50354004, 0.016601563, 0.79437256)
@@ -91,7 +94,7 @@ debug_Label = NodePath("Vorderseite/DebugNumber")
 cardSprite = NodePath("Vorderseite")
 
 [node name="Vorderseite" type="Sprite3D" parent="."]
-transform = Transform3D(-1, -1.5099631e-07, -6.6002586e-15, 0, 4.371139e-08, -1, -1.5099631e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
+transform = Transform3D(-1, -1.5099651e-07, -6.600267e-15, 0, 4.371139e-08, -1, -1.5099651e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
 shaded = true
 alpha_cut = 2
 texture_filter = 0
@@ -101,14 +104,15 @@ vframes = 4
 region_rect = Rect2(3, 3, 51, 79)
 
 [node name="DebugNumber" type="Label3D" parent="Vorderseite"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.05223e-09, 0.11558154)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.8812027e-09, 0.15742356)
 billboard = 1
 texture_filter = 0
-modulate = Color(0, 0, 0, 1)
-outline_modulate = Color(1, 1, 1, 1)
+render_priority = 1
+outline_render_priority = 0
 text = "12"
-font_size = 60
-outline_size = 0
+font = ExtResource("3_nonu5")
+font_size = 64
+outline_size = 10
 
 [node name="Rückseite" type="Sprite3D" parent="Vorderseite"]
 transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, -1, -0.009940658, -0.0009291018, -0.0038289053)
@@ -130,6 +134,12 @@ libraries = {
 [node name="flipFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_naqve")
 volume_db = -5.0
+
+[node name="shuffleSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_45762")
+
+[node name="moneySfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_nonu5")
 
 [connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
 [connection signal="mouse_exited" from="Area3D" to="." method="_on_area_3d_mouse_exited"]

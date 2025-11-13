@@ -10,6 +10,8 @@ extends Node3D
 
 var abzugProKarte = 1
 
+var numArray = ["2","3","4","5","6","7","8","9","10","B","D","K","A"]
+
 var cardValue = 0; #max 12
 var cardSymbol = 0; #max 3
 
@@ -29,7 +31,7 @@ var lastResetID = null
 func _ready() -> void:
 	cardValue = randi_range(0,12)
 	cardSymbol = randi_range(0,3)
-	debug_Label.text = str(cardValue)
+	debug_Label.text = numArray[cardValue]
 	cardSprite.frame_coords = Vector2i(cardValue,cardSymbol)
 	if isCorner:
 		hasBeenTurned = true
@@ -100,14 +102,17 @@ func getAmountOfTurnedNeighbours() -> Vector3i:
 func reset(resetid: int, eventEntry: bool) -> void:
 	if eventEntry:
 		await get_tree().create_timer(0.75).timeout
+		$shuffleSFX.play()
 	
 	if resetid != lastResetID and hasBeenTurned:
+		master.amountUnlockedCards -= 1
 		lastResetID = resetid
 		hasBeenTurned = false
 		animation_player.play("flip_back")
 		$flipFX.play()
+		$moneySfx.play()
 		cardValue = randi_range(0,12)
-		debug_Label.text = str(cardValue)
+		debug_Label.text = numArray[cardValue]
 		if master.currentPlayer == 1:
 			master.Getti_Money -= abzugProKarte
 		else:
@@ -134,7 +139,7 @@ func reset(resetid: int, eventEntry: bool) -> void:
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("Mouse Middle"):
-			print("amk")
+			pass
 		elif mouseIsOn and not hasBeenTurned:
 			hasBeenTurned = true
 			animation_player.play("flip")
@@ -144,25 +149,30 @@ func _input(event):
 				if numN.x == 1:
 					if cardValue <= numN.z:
 						reset(randi(),true)
-						print("verloren du Pisser")
+						master.allowedToSwitchPlayer = false
 				if numN.x >= 2:
 					if cardValue <= numN.z and cardValue >= numN.y:
 						reset(randi(),true)
-						print("innerhalb du kleiner Peach")
+						master.allowedToSwitchPlayer = false
+			
+			else:
+				master.allowedToSwitchPlayer = true
+				master.amountUnlockedCards += 1
 						
 			if event.is_action_pressed("Mouse Right"):
 				if numN.x == 1:
 					if cardValue >= numN.z:
 						reset(randi(),true)
-						print("verloren weil kleiner")
+						master.allowedToSwitchPlayer = false
 				if numN.x >= 2:
 					print(cardValue >= numN.z, cardValue <= numN.y)
 					if cardValue <= numN.z and cardValue <= numN.y:
 						reset(randi(),true)
-						print("außerhalb du Pisser")
+						master.allowedToSwitchPlayer = false
 			
 			else:
 				master.allowedToSwitchPlayer = true
+				master.amountUnlockedCards += 1
 	elif event is InputEventMouseMotion:
 		pass
 

@@ -6,6 +6,8 @@ var allowedToSwitchPlayer = false
 
 var stateOfCurrentCard = 0 #0 = kann nicht ausgewählt werden, 1 = Karte hat einen Nachbar, 2 = Karte hat mind. 2 Nachbarn
 
+var amountUnlockedCards = 0
+
 var Getti_Money = 20:
 	set(value):
 		Getti_Money = value
@@ -24,5 +26,5 @@ func _process(delta: float) -> void:
 	bleronGeldLabel.text = str(Bleron_Money)+"$"
 
 func geldGeändert(): #sterben aktiviereb bra
-	if Getti_Money <= 0 || Bleron_Money <= 0:
+	if Getti_Money <= 0 || Bleron_Money <= 0 || amountUnlockedCards == 21:
 		get_tree().change_scene_to_packed(load("res://Levels/endScreen1.tscn"))
