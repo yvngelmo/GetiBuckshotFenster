@@ -94,7 +94,7 @@ cardSprite = NodePath("Vorderseite")
 moneyFX = NodePath("moneyFX")
 
 [node name="Vorderseite" type="Sprite3D" parent="."]
-transform = Transform3D(-1, -1.5099634e-07, -6.60026e-15, 0, 4.371139e-08, -1, -1.5099634e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
+transform = Transform3D(-1, -1.509964e-07, -6.6002624e-15, 0, 4.371139e-08, -1, -1.509964e-07, 1, 4.371139e-08, -4.714162e-10, -0.0053923726, 0)
 shaded = true
 alpha_cut = 2
 texture_filter = 0

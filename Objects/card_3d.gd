@@ -9,6 +9,8 @@ extends Node3D
 @export var rightCard: Node
 @export var moneyFX: Node
 
+var valueArray = ["2","3","4","5","6","7","8","9","10","B","D","K","A"]
+
 var abzugProKarte = 1
 
 var cardValue = 0; #max 12
@@ -30,7 +32,7 @@ var lastResetID = null
 func _ready() -> void:
 	cardValue = randi_range(0,12)
 	cardSymbol = randi_range(0,3)
-	debug_Label.text = str(cardValue)
+	debug_Label.text = valueArray[cardValue]
 	cardSprite.frame_coords = Vector2i(cardValue,cardSymbol)
 	if isCorner:
 		hasBeenTurned = true
@@ -111,7 +113,8 @@ func reset(resetid: int, eventEntry: bool) -> void:
 		$flipFX.play()
 		moneyFX.play()
 		cardValue = randi_range(0,12)
-		debug_Label.text = str(cardValue)
+		debug_Label.text = valueArray[cardValue]
+		cardSprite.frame_coords = Vector2i(cardValue,cardSymbol)
 		if master.currentPlayer == 1:
 			master.Getti_Money -= abzugProKarte
 		else:
