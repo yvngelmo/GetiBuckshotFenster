@@ -135,6 +135,7 @@ func reset(resetid: int, eventEntry: bool) -> void:
 			await get_tree().create_timer(0.3).timeout
 			hasBeenTurned = true
 			animation_player.play("flip")
+			master.amountUnlockedCards += 1
 
 func _input(event):
 	if event is InputEventMouseButton:
